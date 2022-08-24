@@ -16,5 +16,8 @@
     "server": [
       "com.github.mirailuv.rosewire.Main"
     ]
+  },
+  "depends": {
+    "fabric": "*"
   }
 }
