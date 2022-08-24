@@ -11,22 +11,8 @@ import java.nio.channels.Channels;
 import java.nio.channels.ReadableByteChannel;
 
 public class FileManager {
-
     static BufferedReader r;
     static File f;
-    /*try {
-			r = new BufferedReader(new FileReader(
-					"/Users/pankaj/Downloads/myfile.txt"));
-			String line = r.readLine();
-			while (line != null) {
-				System.out.println(line);
-				// read next line
-				line = r.readLine();
-			}
-			r.close();
-		} catch (IOException e) {
-			e.printStackTrace();
-		}*/
 
     public static boolean exists(String file) {
         f = new File("./config/rosewire/"+file);
@@ -35,6 +21,7 @@ public class FileManager {
         }
         return false;
     }
+
     public static String line1(String file) {
         try {
             r = new BufferedReader(new FileReader("./config/rosewire/"+file));
@@ -48,6 +35,7 @@ public class FileManager {
         } catch (IOException e) {}
         return result;
     }
+
     public static String line2(String file) {
         try {
             r = new BufferedReader(new FileReader("./config/rosewire/"+file));
@@ -64,6 +52,7 @@ public class FileManager {
         } catch (IOException e) {}
         return result;
     }
+    
     public static void download(String file, String link) throws IOException {
             URL url = new URL(link);
             ReadableByteChannel c = Channels.newChannel(url.openStream());

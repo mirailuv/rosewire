@@ -1,7 +1,6 @@
 package com.github.mirailuv.rosewire;
 
 import java.io.IOException;
-
 import com.mojang.brigadier.CommandDispatcher;
 import com.mojang.brigadier.arguments.StringArgumentType;
 import net.minecraft.server.command.CommandManager;
@@ -25,21 +24,17 @@ public class DownloadCommand {
                         try {
                             FileManager.download(path,link);
                             source.sendMessage(Text.literal("Download successful"));
-                            Main.l.info("Download successful");
                             return 1;
                         } catch (IOException e) {}
                     }
                 }
                 source.sendMessage(Text.literal("Download failed"));
-                Main.l.info("Download failed");
                 return 0;
             }
             source.sendMessage(Text.literal("No input file found"));
-            Main.l.info("No input file found");
             return 0;
         }
         source.sendMessage(Text.literal("Source is null"));
-        Main.l.info("Source is null");
         return 0;
     }
 }
