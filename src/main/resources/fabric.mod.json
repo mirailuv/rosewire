@@ -1,25 +1,20 @@
 {
   "schemaVersion": 1,
-  "id": "mod",
+  "id": "rosewire",
   "version": "${version}",
 
-  "name": "mod",
-  "description": "creative description",
+  "name": "Rosewire",
+  "description": "File downloader for servers",
   "authors": [
     "mirailuv"
   ],
   "contact": {
-    "sources": "https://github.com/mirailuv/mod"
+    "sources": "https://github.com/mirailuv/rosewire"
   },
   "environment": "*",
   "entrypoints": {
     "main": [
-      "com.github.mirailuv.mod.Main"
+      "com.github.mirailuv.rosewire.Main"
     ]
-  },
-  "depends": {
-    "fabricloader": ">=0.14.6",
-    "fabric": "*",
-    "minecraft": "*"
   }
 }
