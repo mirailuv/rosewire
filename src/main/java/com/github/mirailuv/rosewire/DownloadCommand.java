@@ -6,34 +6,39 @@ import com.mojang.brigadier.CommandDispatcher;
 import com.mojang.brigadier.arguments.StringArgumentType;
 import net.minecraft.server.command.CommandManager;
 import net.minecraft.server.command.ServerCommandSource;
+import net.minecraft.text.Text;
 
 public class DownloadCommand {
 
     public static void register(CommandDispatcher<ServerCommandSource> dispatcher) {
-        dispatcher.register(CommandManager.literal("download").requires(source -> source.hasPermissionLevel(0)).then(CommandManager.argument("source",StringArgumentType.string()).executes(context -> setTarget(StringArgumentType.getString(context, "source")))));
+        dispatcher.register(CommandManager.literal("download").requires(source -> source.hasPermissionLevel(4)).then(CommandManager.argument("source",StringArgumentType.string()).executes(context -> setTarget(context.getSource(),StringArgumentType.getString(context, "source")))));
     }
 
-    private static int setTarget(String source) {
+    private static int setTarget(ServerCommandSource source,String file) {
 
-        if (source != null) {
-            if (FileManager.exists(source)) {
-                String path = FileManager.line1(source);
-                String link = FileManager.line2(source);
+        if (file != null) {
+            if (FileManager.exists(file)) {
+                String path = FileManager.line1(file);
+                String link = FileManager.line2(file);
                 if (path != null) {
                     if (link != null) {
                         try {
                             FileManager.download(path,link);
+                            source.sendMessage(Text.literal("Download successful"));
+                            Main.l.info("Download successful");
+                            return 1;
                         } catch (IOException e) {}
-                        return 1;
                     }
                 }
-                Main.l.info("Failed to download");
+                source.sendMessage(Text.literal("Download failed"));
+                Main.l.info("Download failed");
                 return 0;
             }
-            Main.l.info("File doesn't exist");
+            source.sendMessage(Text.literal("No input file found"));
+            Main.l.info("No input file found");
             return 0;
         }
-
+        source.sendMessage(Text.literal("Source is null"));
         Main.l.info("Source is null");
         return 0;
     }
