@@ -15,3 +15,5 @@ if you put that in ./config/rosewire/ and run /download example.txt it will down
 you can change the path to anything in your server folder, so you can download like mods or datapacks with this
 
 you can also have as many different download configurations as you'd like
+
+made for 1.19.2, will probably be updated to never versions
