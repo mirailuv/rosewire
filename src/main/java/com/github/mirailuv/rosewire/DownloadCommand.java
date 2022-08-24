@@ -1,5 +1,7 @@
 package com.github.mirailuv.rosewire;
 
+import java.io.IOException;
+
 import com.mojang.brigadier.CommandDispatcher;
 import com.mojang.brigadier.arguments.StringArgumentType;
 import net.minecraft.server.command.CommandManager;
@@ -17,8 +19,16 @@ public class DownloadCommand {
             if (FileManager.exists(source)) {
                 String path = FileManager.line1(source);
                 String link = FileManager.line2(source);
-                Main.l.info(path+link);
-                return 1;
+                if (path != null) {
+                    if (link != null) {
+                        try {
+                            FileManager.download(path,link);
+                        } catch (IOException e) {}
+                        return 1;
+                    }
+                }
+                Main.l.info("Failed to download");
+                return 0;
             }
             Main.l.info("File doesn't exist");
             return 0;
