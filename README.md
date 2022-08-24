@@ -10,7 +10,7 @@ just create a folder ./config/rosewire/ and put files configuring all your downl
 
 an example for a file like that is provided as example.txt
 
-if you put that in ./config/rosewire/ and run "/download example.txt" it will download the file in your main server folder
+if you put that in ./config/rosewire/ and run /download example.txt it will download the file in your main server folder
 
 you can change the path to anything in your server folder, so you can download like mods or datapacks with this
 
