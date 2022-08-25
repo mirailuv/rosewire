@@ -19,13 +19,26 @@ public class DownloadCommand {
             if (FileManager.exists(file)) {
                 String path = FileManager.line1(file);
                 String link = FileManager.line2(file);
+                String unzip = FileManager.line3(file);
+                String target = null;
+                if (unzip == "unzip") {
+                    target = FileManager.line4(file);
+                } else {
+                    unzip = null;
+                }
                 if (path != null) {
                     if (link != null) {
                         try {
                             FileManager.download(path,link);
                             source.sendMessage(Text.literal("Download successful"));
-                            return 1;
                         } catch (IOException e) {}
+                        if (unzip != null) {
+                            try {
+                                FileManager.unzip(path,target);
+                            } catch (IOException e) {}
+                        }   else {
+                            return 1;
+                        }
                     }
                 }
                 source.sendMessage(Text.literal("Download failed"));

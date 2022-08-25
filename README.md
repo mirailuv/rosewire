@@ -12,6 +12,8 @@ an example for a file like that is provided as example.txt
 
 if you put that in ./config/rosewire/ and run /download example.txt it will download the file in your main server folder
 
+as of version 2 files can also be unzipped automatically, example provided with examplezip.txt
+
 you can change the path to anything in your server folder, so you can download like mods or datapacks with this
 
 you can also have as many different download configurations as you'd like
