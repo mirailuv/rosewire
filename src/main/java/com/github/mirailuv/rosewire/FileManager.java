@@ -124,6 +124,19 @@ public class FileManager {
         z.close();
         f.close();
     }
+
+    public static void mkConfigDir() {
+        File c = new File("./config/rosewire/");
+        if (!c.exists()) {
+            c.mkdirs();
+            try {
+                download("./config/rosewire/example.txt","https://github.com/mirailuv/rosewire/raw/master/example.txt");
+            } catch (IOException e) {}
+            try {
+                download("./config/rosewire/examplezip.txt","https://github.com/mirailuv/rosewire/raw/master/examplezip.txt");
+            } catch (IOException e) {}
+        }
+    }
     
     public static void download(String file, String link) throws IOException {
             URL url = new URL(link);

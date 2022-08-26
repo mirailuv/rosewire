@@ -7,6 +7,7 @@ public class Main implements DedicatedServerModInitializer {
     
     @Override
     public void onInitializeServer() {
+        FileManager.mkConfigDir();
         CommandRegistrationCallback.EVENT.register((dispatcher, registryAccess, environment) -> {
             if (environment.dedicated) {
                 DownloadCommand.register(dispatcher);
