@@ -13,8 +13,11 @@
   },
   "environment": "*",
   "entrypoints": {
+    "client": [
+      "com.github.mirailuv.rosewire.Client"
+    ],
     "server": [
-      "com.github.mirailuv.rosewire.Main"
+      "com.github.mirailuv.rosewire.Server"
     ]
   },
   "depends": {

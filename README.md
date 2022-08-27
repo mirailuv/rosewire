@@ -1,8 +1,10 @@
 # Rosewire
 
-fabric mod to download files from the internet with a command on servers
+fabric mod to download files from the internet with a command
 
 requires fabric api
+
+made for servers but also works on client / singleplayer (as of version 3)
 
 what files you can download must be configured manually with configuration files for security reasons
 

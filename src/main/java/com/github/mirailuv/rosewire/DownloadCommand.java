@@ -19,23 +19,29 @@ public class DownloadCommand {
             if (FileManager.exists(file)) {
                 String path = FileManager.line1(file);
                 String link = FileManager.line2(file);
-                String unzip = FileManager.line3(file);
+                String action = FileManager.line3(file);
                 if (path != null) {
                     if (link != null) {
                         try {
                             FileManager.download(path,link);
                             source.sendMessage(Text.literal("Download successful"));
                         } catch (IOException e) {}
-                        if (unzip != null) {
-                            source.sendMessage(Text.literal("Attempting unzip"));
-                            String target = FileManager.line4(file);
-                            try {
-                                FileManager.unzip(path,target);
-                                source.sendMessage(Text.literal("Unzip successful"));
-                                return 1;
-                            } catch (IOException e) {}
-                            source.sendMessage(Text.literal("Failed to unzip"));
+                        if (action != null) {
+                            source.sendMessage(Text.literal("Action = "+action));
+                            if (action.equals("unzip")) {
+                                source.sendMessage(Text.literal("Attempting unzip"));
+                                String target = FileManager.line4(file);
+                                try {
+                                    FileManager.unzip(path,target);
+                                    source.sendMessage(Text.literal("Unzip successful"));
+                                    return 1;
+                                } catch (IOException e) {}
+                                source.sendMessage(Text.literal("Unzip failed"));
+                                return 0;
+                            }
+                            source.sendMessage(Text.literal("Action failed"));
                             return 0;
+                            
                         }   else {
                             return 1;
                         }
