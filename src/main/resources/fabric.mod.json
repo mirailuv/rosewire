@@ -18,6 +18,9 @@
     ],
     "server": [
       "com.github.mirailuv.rosewire.Server"
+    ],
+    "preLaunch": [
+      "com.github.mirailuv.rosewire.PreLaunch"
     ]
   },
   "depends": {
