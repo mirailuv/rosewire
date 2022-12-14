@@ -21,3 +21,5 @@ you can change the path to anything in your server folder, so you can download l
 you can also have as many different download configurations as you'd like
 
 files can also be downloaded pre-launch by specifying the downloads in rosewire.prelaunch in ./config/
+
+there is also a command /delete which works similar to the download command, it simply deletes the file/folder specified on the first line

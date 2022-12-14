@@ -194,4 +194,21 @@ public class FileManager {
             s.close();
             c.close();
     }
+
+    public static void delete(String file) {
+        File f = new File(file);
+        if(!f.exists()) return;
+        if(f.isDirectory()) deleteDir(f);
+        else f.delete();
+    }
+
+    public static void deleteDir(File file) {
+        File[] contents = file.listFiles();
+        if (contents != null) {
+            for (File f : contents) {
+                deleteDir(f);
+            }
+        }
+        file.delete();
+    }
 }

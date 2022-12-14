@@ -10,7 +10,7 @@ import net.minecraft.text.Text;
 public class DownloadCommand {
 
     public static void register(CommandDispatcher<ServerCommandSource> dispatcher) {
-        dispatcher.register(CommandManager.literal("download").requires(source -> source.hasPermissionLevel(4)).then(CommandManager.argument("source",StringArgumentType.string()).executes(context -> setTarget(context.getSource(),StringArgumentType.getString(context, "source")))));
+        dispatcher.register(CommandManager.literal("download").requires(source -> source.hasPermissionLevel(2)).then(CommandManager.argument("source",StringArgumentType.string()).executes(context -> setTarget(context.getSource(),StringArgumentType.getString(context, "source")))));
     }
 
     private static int setTarget(ServerCommandSource source,String file) {
