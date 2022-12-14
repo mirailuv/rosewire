@@ -22,4 +22,4 @@ you can also have as many different download configurations as you'd like
 
 files can also be downloaded pre-launch by specifying the downloads in rosewire.prelaunch in ./config/
 
-there is also a command /delete which works similar to the download command, it simply deletes the file/folder specified on the first line
+there is also a command /delete which works similar to the download command, it simply deletes the files/folders specified in the config file

@@ -195,6 +195,30 @@ public class FileManager {
             c.close();
     }
 
+    public static void deleteMany(String file) {
+        try {
+            r = new BufferedReader(new FileReader("./config/rosewire/"+file));
+        } catch (FileNotFoundException e) {}
+        boolean b = true;
+        String result = null;
+        while(b) {
+            try {
+                result = r.readLine();
+            } catch (IOException e) {}
+            if (result != null) {
+                delete(result);
+            } else b = false;
+        }
+
+
+
+
+
+        try {
+            r.close();
+        } catch (IOException e) {}
+    }
+
     public static void delete(String file) {
         File f = new File(file);
         if(!f.exists()) return;

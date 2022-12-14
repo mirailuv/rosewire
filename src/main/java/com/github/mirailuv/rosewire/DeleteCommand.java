@@ -16,9 +16,8 @@ public class DeleteCommand {
 
         if (file != null) {
             if (FileManager.exists(file)) {
-                String path = FileManager.line1(file);
-                FileManager.delete(path);
-                source.sendMessage(Text.literal("File was deleted (if exists)"));
+                FileManager.deleteMany(file);
+                source.sendMessage(Text.literal("Attempting to delete specified targets"));
                 return 1;
             }
             source.sendMessage(Text.literal("No input file found"));
