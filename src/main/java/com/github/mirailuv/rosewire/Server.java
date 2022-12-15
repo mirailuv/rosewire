@@ -9,8 +9,7 @@ public class Server implements DedicatedServerModInitializer {
     public void onInitializeServer() {
         FileManager.mkConfigDir();
         CommandRegistrationCallback.EVENT.register((dispatcher, registryAccess, environment) -> {
-            DeleteCommand.register(dispatcher);
-            DownloadCommand.register(dispatcher);
+            ScriptCommand.register(dispatcher);
         });
     }
 }

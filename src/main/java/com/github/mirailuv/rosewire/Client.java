@@ -9,8 +9,7 @@ public class Client implements ClientModInitializer {
     public void onInitializeClient() {
         FileManager.mkConfigDir();
         CommandRegistrationCallback.EVENT.register((dispatcher, registryAccess, environment) -> {
-            DeleteCommand.register(dispatcher);
-            DownloadCommand.register(dispatcher);
+            ScriptCommand.register(dispatcher);
         });
     }
 }

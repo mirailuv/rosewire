@@ -1,25 +1,13 @@
 # Rosewire
 
-fabric mod to download files from the internet with a command
-
 requires fabric api
 
-made for servers but also works on client / singleplayer (as of version 3)
+allows file operations using scripts
 
-what files you can download must be configured manually with configuration files for security reasons
+scripts can be run with /rosewire command by players or datapacks, additionally they can be configured to run pre-launch at ./config/rosewire.prelaunch
 
-just create a folder ./config/rosewire/ and put files configuring all your downloads there
+first line of file determines the action taken
 
-an example for a file like that is provided as example.txt
+current actions: download, delete, unzip, script
 
-if you put that in ./config/rosewire/ and run /download example.txt it will download the file in your main server folder
-
-as of version 2 files can also be unzipped automatically, example provided with examplezip.txt
-
-you can change the path to anything in your server folder, so you can download like mods or datapacks with this
-
-you can also have as many different download configurations as you'd like
-
-files can also be downloaded pre-launch by specifying the downloads in rosewire.prelaunch in ./config/
-
-there is also a command /delete which works similar to the download command, it simply deletes the files/folders specified in the config file
+check the examples provided (or the code) for syntax

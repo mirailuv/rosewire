@@ -17,28 +17,6 @@ public class FileManager {
     static BufferedReader r;
     static File f;
 
-    public static boolean exists(String file) {
-        f = new File("./config/rosewire/"+file);
-        if (f.exists()) {
-            return true;
-        }
-        return false;
-    }
-
-    public static String line1(String file) {
-        try {
-            r = new BufferedReader(new FileReader("./config/rosewire/"+file));
-        } catch (FileNotFoundException e) {}
-        String result = null;
-        try {
-            result = r.readLine();
-        } catch (IOException e) {}
-        try {
-            r.close();
-        } catch (IOException e) {}
-        return result;
-    }
-
     public static String line2(String file) {
         try {
             r = new BufferedReader(new FileReader("./config/rosewire/"+file));
@@ -61,29 +39,6 @@ public class FileManager {
             r = new BufferedReader(new FileReader("./config/rosewire/"+file));
         } catch (FileNotFoundException e) {}
         String result = null;
-        try {
-            result = r.readLine();
-        } catch (IOException e) {}
-        try {
-            result = r.readLine();
-        } catch (IOException e) {}
-        try {
-            result = r.readLine();
-        } catch (IOException e) {}
-        try {
-            r.close();
-        } catch (IOException e) {}
-        return result;
-    }
-
-    public static String line4(String file) {
-        try {
-            r = new BufferedReader(new FileReader("./config/rosewire/"+file));
-        } catch (FileNotFoundException e) {}
-        String result = null;
-        try {
-            result = r.readLine();
-        } catch (IOException e) {}
         try {
             result = r.readLine();
         } catch (IOException e) {}
@@ -130,59 +85,58 @@ public class FileManager {
         if (!c.exists()) {
             c.mkdirs();
             try {
-                download("./config/rosewire/example.txt","https://github.com/mirailuv/rosewire/raw/master/example.txt");
+                download("./config/rosewire/scriptexample","https://github.com/mirailuv/rosewire/raw/master/scriptexample");
             } catch (IOException e) {}
             try {
-                download("./config/rosewire/examplezip.txt","https://github.com/mirailuv/rosewire/raw/master/examplezip.txt");
+                download("./config/rosewire/downloadexample","https://github.com/mirailuv/rosewire/raw/master/downloadexample");
+            } catch (IOException e) {}
+            try {
+                download("./config/rosewire/unzipexample","https://github.com/mirailuv/rosewire/raw/master/unzipexample");
+            } catch (IOException e) {}
+            try {
+                download("./config/rosewire/deleteexample","https://github.com/mirailuv/rosewire/raw/master/deleteexample");
+            } catch (IOException e) {}
+
+        }
+    }
+
+    public static void downloadScript(String file) {
+        String path = line2(file);
+        String link = line3(file);
+        if (link != null) {
+            try {
+                download(path,link);
             } catch (IOException e) {}
         }
     }
 
-    public static void preLaunch() {
-        File x = new File("./config/rosewire.prelaunch");
-        if (x.exists()) {
-            try {
-                r = new BufferedReader(new FileReader(x));
-            } catch (FileNotFoundException e) {}
-            String line = null;
-            boolean b = true;
-            while (b) {
-                line = null;
-                try {
-                    line = r.readLine();
-                } catch (IOException e) {}
-                if (line == null) b=false; else preDl(line);
-            }
-            try {
-                r.close();
-            } catch (IOException e) {}
-        } else {
-            File configFolder = new File("./config/");
-            configFolder.mkdirs();
-            try {
-                x.createNewFile();
-            } catch (IOException e) {}
-        }
+    public static void unzipScript(String file) {
+        String path = line2(file);
+        String target = line3(file);
+        try {
+            unzip(path,target);
+        } catch (IOException e) {}
     }
 
-    public static void preDl(String file) {
-        if (exists(file)) {
-            String path = line1(file);
-            String link = line2(file);
-            String action = line3(file);
-            if (link != null) {
-                try {
-                    download(path,link);
-                } catch (IOException e) {}
-                if (action != null) {
-                    if (action.equals("unzip")) {
-                        String target = line4(file);
-                        try {
-                            unzip(path,target);
-                        } catch (IOException e) {}
-                    }                    
-                }
-            }
+    public static void deleteScript(String file) {
+        try {
+            r = new BufferedReader(new FileReader("./config/rosewire/"+file));
+        } catch (FileNotFoundException e) {}
+        boolean b = true;
+        String result = null;
+        // read first line
+        try {
+            result = r.readLine();
+        } catch (IOException e) {}
+
+        // read rest of the lines and delete everything
+        while(b) {
+            try {
+                result = r.readLine();
+            } catch (IOException e) {}
+            if (result != null) {
+                delete(result);
+            } else b = false;
         }
     }
     
@@ -209,11 +163,6 @@ public class FileManager {
                 delete(result);
             } else b = false;
         }
-
-
-
-
-
         try {
             r.close();
         } catch (IOException e) {}

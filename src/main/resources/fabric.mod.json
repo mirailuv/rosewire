@@ -4,7 +4,7 @@
   "version": "${version}",
 
   "name": "Rosewire",
-  "description": "File downloader for servers",
+  "description": "Script-based file managing tool",
   "authors": [
     "mirailuv"
   ],
