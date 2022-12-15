@@ -17,6 +17,7 @@ public class FileManager {
     static BufferedReader r;
     static File f;
 
+    // return line 2 of file
     public static String line2(String file) {
         try {
             r = new BufferedReader(new FileReader("./config/rosewire/"+file));
@@ -34,6 +35,7 @@ public class FileManager {
         return result;
     }
 
+    // return line 3 of file
     public static String line3(String file) {
         try {
             r = new BufferedReader(new FileReader("./config/rosewire/"+file));
@@ -54,6 +56,7 @@ public class FileManager {
         return result;
     }
 
+    // unzipping thing that i copied from the internet
     public static void unzip(String file, String target) throws IOException {
         File t = new File(target);
         if(!t.exists()) t.mkdirs();
@@ -80,6 +83,7 @@ public class FileManager {
         f.close();
     }
 
+    // make config directory if it doesn't exist, and also download example files
     public static void mkConfigDir() {
         File c = new File("./config/rosewire/");
         if (!c.exists()) {
