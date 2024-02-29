@@ -6,38 +6,37 @@ import java.io.FileNotFoundException;
 import java.io.FileReader;
 import java.io.IOException;
 
+import net.minecraft.server.command.ServerCommandSource;
+import net.minecraft.text.Text;
+
 public class ScriptReader {
 
-    public static void executeScript(String file) {
-        String s = getType(file);
-        System.out.println("Action: "+s);
-        if (s == null) return;
-        switch(s) {
+    public static void executeScript(String file, ServerCommandSource source) {
+        String type = getType(file);
+        if (type == null) {
+            sendMessage(file+" not found", source);
+            return;
+        }
+        sendMessage("execute "+type, source);
+        switch(type) {
             case "script":
-                System.out.println("read script");
-                readScript(file);
+                readScript(file, source);
                 return;
 
             case "download":
-                System.out.println("downloading");
                 FileManager.downloadScript(file);
-                System.out.println("download complete");
                 return;
                 
             case "delete":
-                System.out.println("deleting");
                 FileManager.deleteScript(file);
-                System.out.println("delete complete");
                 return;
                 
             case "unzip":
-                System.out.println("unzipping");
                 FileManager.unzipScript(file);
-                System.out.println("unzip complete");
                 return;
 
             default: 
-                System.out.println("action could not be determined");
+                sendMessage("type "+type+" is unsupported", source);
                 return;
         }
     }
@@ -45,11 +44,9 @@ public class ScriptReader {
     public static String getType(String file) {
         File f = new File("./config/rosewire/"+file);
         if (f.exists()) {
-            System.out.println("file exists");
             return line1(file);
         }
         else {
-            System.out.println("file does not exist");
             return null;
         }
     }
@@ -71,7 +68,7 @@ public class ScriptReader {
         return result;
     }
 
-    public static void readScript(String file) {
+    public static void readScript(String file, ServerCommandSource source) {
         BufferedReader r = null;
         File f = new File("./config/rosewire/"+file);
         if (f.exists()) {
@@ -83,7 +80,7 @@ public class ScriptReader {
 
             String line = null;
 
-            // Read the first line (script type file)
+            // Skip over the first line
             try {
                 line = r.readLine();
             } catch (IOException e) {}
@@ -94,15 +91,11 @@ public class ScriptReader {
                 try {
                     line = r.readLine();
                 } catch (IOException e) {}
-                System.out.println("Read: "+line);
                 if (line != null) {
-                    executeScript(line);
-                    continue;
-                }
-                else {
-                    System.out.println("breaking");
-                    break;
-                }
+                    sendMessage(line+" start", source);
+                    executeScript(line, source);
+                    sendMessage(line+" finish", source);
+                } else break;
             }
 
             try {
@@ -112,6 +105,7 @@ public class ScriptReader {
     }
 
     public static void preLaunchScript() {
+        ServerCommandSource source = null;
         BufferedReader r = null;
         File f = new File("./config/rosewire.prelaunch");
         if (f.exists()) {
@@ -129,17 +123,23 @@ public class ScriptReader {
                 try {
                     line = r.readLine();
                 } catch (IOException e) {}
-                System.out.println("Reading: "+line);
                 if (line != null) {
-                    executeScript(line);
-                    continue;
-                }
-                else break;
+                    sendMessage(line+" start", source);
+                    executeScript(line, source);
+                    sendMessage(line+" finish", source);
+                } else break;
             }
 
             try {
                 r.close();
             } catch (IOException e) {}
+        }
+    }
+    public static void sendMessage(String message, ServerCommandSource source) {
+        if (source != null) {
+            source.sendMessage(Text.literal(message));
+        } else {
+            System.out.println(message);
         }
     }
 }

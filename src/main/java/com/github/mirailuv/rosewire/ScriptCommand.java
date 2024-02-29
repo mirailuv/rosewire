@@ -13,11 +13,9 @@ public class ScriptCommand {
     }
 
     private static int runScript(ServerCommandSource source,String file) {
-        System.out.println("Rosewire command run");
-        source.sendMessage(Text.literal("Starting to execute: "+file));
-        ScriptReader.executeScript(file);
-        System.out.println("Rosewire command finished");
-        source.sendMessage(Text.literal("Finished executing: "+file));
+        source.sendMessage(Text.literal(file+" start"));
+        ScriptReader.executeScript(file, source);
+        source.sendMessage(Text.literal(file+" finish"));
         return 1;
     }
 }

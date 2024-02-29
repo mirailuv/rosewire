@@ -83,7 +83,7 @@ public class FileManager {
         f.close();
     }
 
-    // make config directory if it doesn't exist, and also download example files
+    // make config directory if it doesn't exist, also download example files when creating directory
     public static void mkConfigDir() {
         File c = new File("./config/rosewire/");
         if (!c.exists()) {
@@ -126,7 +126,6 @@ public class FileManager {
         try {
             r = new BufferedReader(new FileReader("./config/rosewire/"+file));
         } catch (FileNotFoundException e) {}
-        boolean b = true;
         String result = null;
         // read first line
         try {
@@ -134,42 +133,24 @@ public class FileManager {
         } catch (IOException e) {}
 
         // read rest of the lines and delete everything
-        while(b) {
+        while(true) {
             try {
                 result = r.readLine();
             } catch (IOException e) {}
             if (result != null) {
                 delete(result);
-            } else b = false;
+            } else break;
         }
     }
     
     public static void download(String file, String link) throws IOException {
+            // will change this to something that isn't deprecated eventually
             URL url = new URL(link);
             ReadableByteChannel c = Channels.newChannel(url.openStream());
             FileOutputStream s = new FileOutputStream(file);
             s.getChannel().transferFrom(c, 0, Long.MAX_VALUE);
             s.close();
             c.close();
-    }
-
-    public static void deleteMany(String file) {
-        try {
-            r = new BufferedReader(new FileReader("./config/rosewire/"+file));
-        } catch (FileNotFoundException e) {}
-        boolean b = true;
-        String result = null;
-        while(b) {
-            try {
-                result = r.readLine();
-            } catch (IOException e) {}
-            if (result != null) {
-                delete(result);
-            } else b = false;
-        }
-        try {
-            r.close();
-        } catch (IOException e) {}
     }
 
     public static void delete(String file) {
